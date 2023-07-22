@@ -172,7 +172,11 @@ class EmployeeEdit extends React.Component {
 
           <div className="form-control">
             <label>Employee Type</label>
-            <select name="employeeType" defaultValue={employee.employeeType}>
+            <select
+              name="employeeType"
+              defaultValue={employee.employeeType}
+              disabled
+            >
               <option value="select" disabled>
                 Select an Option
               </option>
