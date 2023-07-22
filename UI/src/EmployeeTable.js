@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 
 const EmployeeTable = ({ employees }) => {
   const params = useLocation().search;
-  const value = new URLSearchParams(params).get("emp-Type");  
+  const value = new URLSearchParams(params).get("emp-Type");
   const [empData, setEmployeesData] = useState(employees);
   const [filteredData, setFilteredData] = useState(null);
 
@@ -34,7 +34,7 @@ const EmployeeTable = ({ employees }) => {
       });
   };
   useEffect(() => {
-    if(value === "" || !value) {
+    if (value === "" || !value) {
       getEmployeeDetails();
     }
   }, [value]);
@@ -64,8 +64,7 @@ const EmployeeTable = ({ employees }) => {
       .then(({ data }) => {
         setFilteredData(data.filterEmpByType);
       });
-  }, [value])
-
+  }, [value]);
 
   const onEmpDelete = async (deleteId) => {
     const deleteQuery = `
@@ -106,42 +105,49 @@ const EmployeeTable = ({ employees }) => {
         </thead>
 
         <tbody>
-          {empData && empData.length > 0 ? empData.map((data, index) => {
-            return (
-              <tr key={index}>
-                <td> {data.firstName}</td>
-                <td> {data.lastName}</td>
-                <td> {data.age}</td>
-                <td> {data.dateOfJoining}</td>
-                <td> {data.title}</td>
-                <td> {data.department}</td>
-                <td> {data.employeeType}</td>
-                <td>
-                  <div
-                    className="links"
-                    onClick={(_) =>
-                      (window.location.href = `details/${data._id}`)
-                    }
-                  >
-                    details
-                  </div>
-                </td>
-                <td>
-                  <div
-                    className="links"
-                    onClick={(_) => (window.location.href = `edit/${data._id}`)}
-                  >
-                    Edit
-                  </div>
-                </td>
-                <td>
-                  <div className="links" onClick={(_) => onEmpDelete(data._id)}>
-                    Delete
-                  </div>
-                </td>
-              </tr>
-            );
-          }) : filteredData ? (
+          {empData && empData.length > 0 ? (
+            empData.map((data, index) => {
+              return (
+                <tr key={index}>
+                  <td> {data.firstName}</td>
+                  <td> {data.lastName}</td>
+                  <td> {data.age}</td>
+                  <td> {data.dateOfJoining}</td>
+                  <td> {data.title}</td>
+                  <td> {data.department}</td>
+                  <td> {data.employeeType}</td>
+                  <td>
+                    <div
+                      className="links"
+                      onClick={(_) =>
+                        (window.location.href = `details/${data._id}`)
+                      }
+                    >
+                      details
+                    </div>
+                  </td>
+                  <td>
+                    <div
+                      className="links"
+                      onClick={(_) =>
+                        (window.location.href = `edit/${data._id}`)
+                      }
+                    >
+                      Edit
+                    </div>
+                  </td>
+                  <td>
+                    <div
+                      className="links"
+                      onClick={(_) => onEmpDelete(data._id)}
+                    >
+                      Delete
+                    </div>
+                  </td>
+                </tr>
+              );
+            })
+          ) : filteredData ? (
             <tr>
               <td> {filteredData.firstName}</td>
               <td> {filteredData.lastName}</td>
@@ -151,28 +157,33 @@ const EmployeeTable = ({ employees }) => {
               <td> {filteredData.department}</td>
               <td> {filteredData.employeeType}</td>
               <td>
-                  <div
-                    className="links"
-                    onClick={(_) =>
-                      (window.location.href = `details/${filteredData._id}`)
-                    }
-                  >
-                    details
-                  </div>
-                </td>
-                <td>
-                  <div
-                    className="links"
-                    onClick={(_) => (window.location.href = `edit/${filteredData._id}`)}
-                  >
-                    Edit
-                  </div>
-                </td>
-                <td>
-                  <div className="links" onClick={(_) => onEmpDelete(filteredData._id)}>
-                    Delete
-                  </div>
-                </td>
+                <div
+                  className="links"
+                  onClick={(_) => {
+                    window.location.href = `details/${filteredData._id}`;
+                  }}
+                >
+                  details
+                </div>
+              </td>
+              <td>
+                <div
+                  className="links"
+                  onClick={(_) => {
+                    window.location.href = `edit/${filteredData._id}`;
+                  }}
+                >
+                  Edit
+                </div>
+              </td>
+              <td>
+                <div
+                  className="links"
+                  onClick={(_) => onEmpDelete(filteredData._id)}
+                >
+                  Delete
+                </div>
+              </td>
             </tr>
           ) : null}
         </tbody>

@@ -1,57 +1,65 @@
 import React from "react";
 import EmployeeTable from "./EmployeeTable";
 import EmployeeFilter from "./EmployeeFilter";
-import EmployeeCreate from "./EmployeeCreate";
+import EmployeeCreate from "./EmployeeCreate.js";
 import EmployeeSearch from "./EmployeeSearch";
 
-const EmployeeDirectory = () => {
-  const [employees, setEmployeesData] = React.useState([]);
-  let query = {
-    query: `query {
-      getEmployees {
-        _id,
-        firstName,
-        lastName,
-        age,
-        title,
-        dateOfJoining,
-        department,
-        employeeType
-      }
-    }`,
-  };
-  const refreshEmployeeList = async () => {
+class EmployeeDirectory extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      employees: [],
+    };
+  }
+
+  componentDidMount() {
+    this.refreshEmployeeList();
+  }
+
+  refreshEmployeeList = async () => {
+    let query = {
+      query: `query {
+        getEmployees {
+          _id,
+          firstName,
+          lastName,
+          age,
+          title,
+          dateOfJoining,
+          department,
+          employeeType
+        }
+      }`,
+    };
+
     const response = await fetch("http://localhost:3200/graphql", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(query),
     });
+
     let _response = await response.json();
     let empData = _response.data.getEmployees;
-    setEmployeesData(empData);
+    this.setState({ employees: empData });
   };
-  React.useEffect(function () {
-    refreshEmployeeList();
-  }, [setEmployeesData]);
 
-  const addEmployee = (employee) => {
+  addEmployee = (employee) => {
     const requestBody = {
       query: `
       mutation {
         addEmployee(
-            firstName: "${employee.firstName}" ,
-            lastName: "${employee.lastName}", 
-            age: "${employee.age}",
-            dateOfJoining: "${employee.dateOfJoining}" ,
-            title: "${employee.title}" , 
-            department: "${employee.department}" ,
-            employeeType: "${employee.employeeType}" 
-          )
-          {
-            firstName,
-            lastName
-          }
-        }                         
+          firstName: "${employee.firstName}" ,
+          lastName: "${employee.lastName}", 
+          age: "${employee.age}",
+          dateOfJoining: "${employee.dateOfJoining}" ,
+          title: "${employee.title}" , 
+          department: "${employee.department}" ,
+          employeeType: "${employee.employeeType}" 
+        ) {
+          firstName,
+          lastName
+        }
+      }                         
     `,
     };
 
@@ -61,18 +69,23 @@ const EmployeeDirectory = () => {
       headers: { "Content-Type": "application/json" },
     }).then(async (response) => {
       const data = await response.json();
-      refreshEmployeeList();
+      this.refreshEmployeeList();
       console.log(data);
     });
   };
 
-  return (
-    <div id="child">
-      <EmployeeSearch />
-      <EmployeeCreate addEmployee={addEmployee} />
-      <EmployeeFilter />
-      <EmployeeTable employees={employees} />
-    </div>
-  );
-};
+  render() {
+    const { employees } = this.state;
+
+    return (
+      <div id="child">
+        <EmployeeSearch />
+        <EmployeeCreate addEmployee={this.addEmployee} />
+        {/* <EmployeeFilter /> */}
+        <EmployeeTable employees={employees} />
+      </div>
+    );
+  }
+}
+
 export default EmployeeDirectory;
