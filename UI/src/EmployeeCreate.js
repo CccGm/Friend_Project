@@ -61,9 +61,42 @@ class EmployeeCreate extends React.Component {
       employee.department &&
       employee.employeeType
     ) {
-      this.props.addEmployee(employee);
-      // you did not give were to save data so please add that
+      this.addEmployee(employee);
+      alert("Employ added to table");
+      // window.location.href = "/";
+      window.location.reload();
     }
+  };
+
+  addEmployee = (employee) => {
+    const requestBody = {
+      query: `
+      mutation {
+        addEmployee(
+          firstName: "${employee.firstName}" ,
+          lastName: "${employee.lastName}", 
+          age: "${employee.age}",
+          dateOfJoining: "${employee.dateOfJoining}" ,
+          title: "${employee.title}" , 
+          department: "${employee.department}" ,
+          employeeType: "${employee.employeeType}" 
+        ) {
+          firstName,
+          lastName
+        }
+      }                         
+    `,
+    };
+
+    fetch("http://localhost:3200/graphql", {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: { "Content-Type": "application/json" },
+    }).then(async (response) => {
+      const data = await response.json();
+      this.refreshEmployeeList();
+      console.log(data);
+    });
   };
 
   render() {

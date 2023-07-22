@@ -82,7 +82,9 @@ class EmployeeEdit extends React.Component {
         const { data } = await response.json();
         if (data.updateEmployee) {
           this.setState({ status: true });
-          window.location.href = "/";
+          alert("Employ details has been edited");
+          // window.location.href = "/";
+          window.location.reload();
         }
       })
       .catch((error) => console.error("Error updating employee:", error));
