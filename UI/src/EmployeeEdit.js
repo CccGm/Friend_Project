@@ -54,7 +54,8 @@ class EmployeeEdit extends React.Component {
       department: form.department.value,
       employeeType: form.employeeType.value,
     };
-    const { _id } = this.props.match.params;
+    const url = window.location.href;
+    const _id = url.split("/").pop();
     const employeeUpdateQuery = `
       mutation {
         updateEmployee(data: {
