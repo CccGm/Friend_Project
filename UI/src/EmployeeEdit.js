@@ -108,6 +108,7 @@ class EmployeeEdit extends React.Component {
               name="firstName"
               defaultValue={employee.firstName}
               placeholder="First name"
+              disabled
             ></input>
           </div>
 
@@ -118,7 +119,8 @@ class EmployeeEdit extends React.Component {
               name="lastName"
               defaultValue={employee.lastName}
               placeholder="Last name"
-            ></input>
+              disabled
+            />
           </div>
 
           <div className="form-control">
@@ -128,6 +130,7 @@ class EmployeeEdit extends React.Component {
               name="age"
               defaultValue={employee.age}
               placeholder="Age"
+              disabled
             ></input>
           </div>
 
@@ -137,6 +140,7 @@ class EmployeeEdit extends React.Component {
               type="date"
               name="dateOfJoining"
               defaultValue={employee.dateOfJoining}
+              disabled
             ></input>
           </div>
 
