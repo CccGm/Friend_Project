@@ -1,0 +1,39 @@
+
+input data{
+    _id: String!
+    firstName : String!,
+    lastName : String!,
+    age : String!,
+    birthDate : String!,
+    dateOfJoining : String!,
+    title: String!, 
+    department : String!,
+    employeeType : String!,
+    employeeStatus : String!
+}
+
+type Query {
+    getEmployees(employeeType: String): [Employee!]!
+}
+
+type Employee {
+     _id: String!
+    firstName : String!,
+    lastName : String!,
+    age : String!,
+    birthDate : String!,
+    dateOfJoining : String!,
+    title: String!, 
+    department : String!,
+    employeeType : String!,
+    employeeStatus : String!
+}
+
+type Mutation{
+    addEmployee(firstName: String!, lastName: String!, age: String!,birthDate : String!, dateOfJoining: String!, 
+          title: String!,employeeStatus : String!, department: String!, employeeType: String!) : Employee 
+    EmployeeDetails(_id: String!) : Employee
+    updateEmployee(data: data) : Employee
+    deleteEmp(_id: String!) : Employee
+    filterEmpByType(employeeType: String!) : Employee
+}

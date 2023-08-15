@@ -1,0 +1,128 @@
+body {
+  margin: 0;
+  color: #fff;
+  padding-bottom: 50px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #000;
+}
+
+h1 {
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+  text-decoration: underline;
+}
+h3 {
+  width: 50%;
+  margin-left: 30px;
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  background: black;
+  color: cadetblue;
+}
+.form-control {
+  width: 80%;
+  display: flex;
+  margin: 0 auto;
+  position: relative;
+  align-items: center;
+}
+.form-control label {
+  color: #fff;
+  margin: 20px 15px;
+  width: 300px;
+  font-weight: 500;
+}
+.create-employee {
+  padding: 5px 0 30px 0;
+}
+#employee-form {
+  width: 80%;
+  margin: 0 auto;
+  padding-top: 20px;
+  background: black;
+  border: 1px solid cadetblue;
+}
+.error {
+  color: red;
+  width: 100%;
+  position: absolute;
+  margin: 0 20px;
+  right: 0;
+  left: 185px;
+  bottom: -5px;
+  font-size: 14px;
+}
+.form-control input,
+.form-control select {
+  position: relative;
+  width: 100%;
+  padding: 8px 5px;
+  font-size: 15px;
+}
+.submit-btn button {
+  outline: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px 30px;
+  margin: 30px 10px;
+  background-color: cadetblue;
+}
+th,
+td {
+  font-size: 14px;
+  padding: 5px 10px;
+  background: aliceblue;
+  color: #000;
+}
+table {
+  width: 80%;
+  margin: 0 auto;
+}
+
+nav {
+  display: flex;
+  padding: 10px;
+  justify-content: space-evenly;
+  margin-bottom: 30px;
+  background:aliceblue;
+}
+nav a {
+  color: #000;
+  font-size: 18px;
+}
+
+.filter-container {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid #ccc;
+  justify-content: space-evenly;
+}
+.filter-container form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.links {
+  color: green;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.employee-details {
+  border: 1px solid;
+  width: 50%;
+  text-align: left;
+  margin: 0 auto;
+  padding: 0 50px;
+}
+.action-buttons {
+  display: flex;
+  justify-content: center;
+}
+.employeeEdit label{
+  color: #fff;
+}
