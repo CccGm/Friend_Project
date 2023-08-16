@@ -1,16 +1,19 @@
 import React from "react";
 import EmployeeFilter from "./EmployeeFilter";
+import YearFilter from "./YearFilter";
 
 class EmployeeTable extends React.Component {
   constructor(props) {
     super(props);
     const params = new URLSearchParams(window.location.search);
-    const value = params.get("emp-Type");
+    const empValue = params.get("emp-Type");
+    const yearValue = params.get("filter-year");
 
     this.state = {
       empData: props.employees,
       filteredData: null,
-      value: value || "",
+      filterYear: yearValue || "",
+      value: empValue || "",
     };
   }
 
@@ -63,14 +66,31 @@ class EmployeeTable extends React.Component {
       birthDateObj.getDate()
     );
 
+    let f_year = this.state.filterYear;
+
     // Calculate the difference in months between the current date and the retirement date
     const monthsDifference =
       (retirementDateObj - new Date()) / (1000 * 60 * 60 * 24 * 30.44); // Average month length
 
-    if (monthsDifference > 0) {
-      return retirementDateObj.toISOString().split("T")[0];
+    const yearsDifference =
+      (retirementDateObj - new Date()) / (1000 * 60 * 60 * 24 * 365.25); // Average year length including leap years
+
+    if (f_year != "" && monthsDifference > 0) {
+      if (f_year == "less1year" && yearsDifference < 1) {
+        return retirementDateObj.toISOString().split("T")[0];
+      } else if (f_year == "less5year" && yearsDifference < 5) {
+        return retirementDateObj.toISOString().split("T")[0];
+      } else if (f_year == "less10year" && yearsDifference < 10) {
+        return retirementDateObj.toISOString().split("T")[0];
+      } else {
+        return null;
+      }
     } else {
-      return "Emplyee is Retire";
+      if (monthsDifference > 0) {
+        return retirementDateObj.toISOString().split("T")[0];
+      } else {
+        return "Emplyee is Retire";
+      }
     }
   };
 
@@ -92,7 +112,7 @@ class EmployeeTable extends React.Component {
       }
     `;
 
-    const response = await fetch("http://localhost:3200/graphql", {
+    await fetch("http://localhost:3200/graphql", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query: employeeTypeQuery }),
@@ -128,6 +148,7 @@ class EmployeeTable extends React.Component {
     return (
       <div className="table-container">
         <EmployeeFilter />
+        <YearFilter />
         <h1>Employee Table</h1>
         <table>
           <thead>
@@ -150,55 +171,58 @@ class EmployeeTable extends React.Component {
           <tbody>
             {empData && empData.length > 0 ? (
               empData.map((data, index) => {
-                return (
-                  <tr key={index}>
-                    <td> {data.firstName}</td>
-                    <td> {data.lastName}</td>
-                    <td> {data.age}</td>
-                    <td> {data.birthDate}</td>
-                    <td> {data.dateOfJoining}</td>
-                    <td> {data.title}</td>
-                    <td> {data.employeeStatus}</td>
-                    <td> {data.department}</td>
-                    <td> {data.employeeType}</td>
-                    <td>{this.calculateRetirementDate(data.birthDate)}</td>
-                    <td>
-                      <div
-                        className="links"
-                        onClick={(_) =>
-                          (window.location.href = `details/${data._id}`)
-                        }
-                      >
-                        Details
-                      </div>
-                    </td>
-                    <td>
-                      <div
-                        className="links"
-                        onClick={(_) =>
-                          (window.location.href = `edit/${data._id}`)
-                        }
-                      >
-                        Edit
-                      </div>
-                    </td>
-                    <td>
-                      <div
-                        className="links"
-                        onClick={(_) => {
-                          if (data.employeeStatus === "Active") {
-                            alert("Status Active so not deleted");
-                          } else {
-                            this.onEmpDelete(data._id);
-                          }
-                          // this.onEmpDelete(data._id);
-                        }}
-                      >
-                        Delete
-                      </div>
-                    </td>
-                  </tr>
-                );
+                {
+                  if (this.calculateRetirementDate(data.birthDate) != null)
+                    return (
+                      <tr key={index}>
+                        <td> {data.firstName}</td>
+                        <td> {data.lastName}</td>
+                        <td> {data.age}</td>
+                        <td> {data.birthDate}</td>
+                        <td> {data.dateOfJoining}</td>
+                        <td> {data.title}</td>
+                        <td> {data.employeeStatus}</td>
+                        <td> {data.department}</td>
+                        <td> {data.employeeType}</td>
+                        <td>{this.calculateRetirementDate(data.birthDate)}</td>
+                        <td>
+                          <div
+                            className="links"
+                            onClick={(_) =>
+                              (window.location.href = `details/${data._id}`)
+                            }
+                          >
+                            Details
+                          </div>
+                        </td>
+                        <td>
+                          <div
+                            className="links"
+                            onClick={(_) =>
+                              (window.location.href = `edit/${data._id}`)
+                            }
+                          >
+                            Edit
+                          </div>
+                        </td>
+                        <td>
+                          <div
+                            className="links"
+                            onClick={(_) => {
+                              if (data.employeeStatus === "Active") {
+                                alert("Status Active so not deleted");
+                              } else {
+                                this.onEmpDelete(data._id);
+                              }
+                              // this.onEmpDelete(data._id);
+                            }}
+                          >
+                            Delete
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                }
               })
             ) : filteredData ? (
               <tr>
