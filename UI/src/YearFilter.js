@@ -30,7 +30,7 @@ class YearFilter extends React.Component {
             <option value="less5year">Less than 5 Year</option>
             <option value="less10year">Less than 10 Year</option>
           </select>
-          <button type="submit" className="btn-submit">
+          <button type="submit" className="submit-btn form-control">
             Filter Year
           </button>
         </form>

@@ -31,7 +31,7 @@ class EmployeeFilter extends React.Component {
             <option value="Contract">Contract</option>
             <option value="Seasonal">Seasonal</option>
           </select>
-          <button type="submit" className="btn-submit">
+          <button type="submit" className="submit-btn form-control">
             Filter
           </button>
         </form>
