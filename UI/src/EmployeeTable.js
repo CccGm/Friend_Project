@@ -48,75 +48,33 @@ class EmployeeTable extends React.Component {
       .then((res) => res.json())
       .then(({ data }) => {
         this.setState({ empData: data.getEmployees });
-        console.log(data.getEmployees, "get dat");
       })
       .catch((e) => {
-        console.log(e, "<=errpe");
+        console.log(e, "<=error");
       });
   };
 
-  getDateDifference = (DATE) => {
-    const birthDate = new Date(DATE);
-    const y_birth = birthDate.getFullYear() + 65;
-    const m_birth = birthDate.getMonth() + 1;
-    const d_birth = birthDate.getDate();
-    const b_Date = `${y_birth}-${m_birth}-${d_birth}`;
-    const retirementDate = new Date(b_Date);
-
-    const currentDate = new Date();
-    const y_current = currentDate.getFullYear();
-    const m_current = currentDate.getMonth() + 1;
-    const d_current = currentDate.getDate() + 1;
-    const c_Date = `${y_current}-${m_current}-${d_current}`;
-    const todayDate = new Date(c_Date);
-
-    const timeDifference = retirementDate - todayDate;
-    const millisecondsPerDay = 24 * 60 * 60 * 1000;
-    const millisecondsPerYear = millisecondsPerDay * 365.25; // Approximate average days in a year
-
-    const yearsDifference = Math.floor(timeDifference / millisecondsPerYear);
-    const remainingMilliseconds = timeDifference % millisecondsPerYear;
-
-    const monthsDifference = Math.floor(
-      remainingMilliseconds / (millisecondsPerDay * 30.44)
+  calculateRetirementDate = (birthdate) => {
+    const birthDateObj = new Date(birthdate);
+    const retirementYear = birthDateObj.getFullYear() + 65;
+    const retirementDateObj = new Date(
+      retirementYear,
+      birthDateObj.getMonth(),
+      birthDateObj.getDate()
     );
 
-    const remainingDays = Math.floor(
-      (remainingMilliseconds % (millisecondsPerDay * 30.44)) /
-        millisecondsPerDay
-    );
-    const retirement = `${yearsDifference} Year - ${monthsDifference} Month - ${remainingDays} Day`;
+    // Calculate the difference in months between the current date and the retirement date
+    const monthsDifference =
+      (retirementDateObj - new Date()) / (1000 * 60 * 60 * 24 * 30.44); // Average month length
 
-    const sixMonthsBefore = this.calculateSixMonthsDifference(
-      retirementDate,
-      -6
-    );
-
-    const year_diff = sixMonthsBefore.getFullYear() - currentDate.getFullYear();
-    const month_diff = sixMonthsBefore.getMonth() - currentDate.getMonth();
-    const date_diff = sixMonthsBefore.getDate() - currentDate.getDate();
-
-    if (month_diff < 6 && year_diff < 0) {
-      if (month_diff === 0 && date_diff > 1) {
-        return date_diff + " days Left";
-      } else if (month_diff > 1) {
-        return `${month_diff} months remining`;
-      } else {
-        return "Employee Retire";
-      }
+    if (monthsDifference > 0) {
+      return retirementDateObj.toISOString().split("T")[0];
     } else {
-      return retirement;
+      return "Emplyee is Retire";
     }
   };
 
-  calculateSixMonthsDifference = (baseDate, monthsDifference) => {
-    const newDate = baseDate;
-    newDate.setMonth(newDate.getMonth() + monthsDifference);
-    return newDate;
-  };
-
-  fetchFilteredData = () => {
-    console.log("call", this.state.value);
+  fetchFilteredData = async () => {
     const employeeTypeQuery = `
       mutation {
         filterEmpByType(employeeType: "${this.state.value}") {
@@ -134,14 +92,13 @@ class EmployeeTable extends React.Component {
       }
     `;
 
-    fetch("http://localhost:3200/graphql", {
+    const response = await fetch("http://localhost:3200/graphql", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query: employeeTypeQuery }),
     })
       .then((res) => res.json())
       .then(({ data }) => {
-        console.log(data, "abc=-----");
         this.setState({ filteredData: data.filterEmpByType });
       })
       .catch((e) => console.log(e, "<=error"));
@@ -204,7 +161,7 @@ class EmployeeTable extends React.Component {
                     <td> {data.employeeStatus}</td>
                     <td> {data.department}</td>
                     <td> {data.employeeType}</td>
-                    <td>{this.getDateDifference(data.birthDate)}</td>
+                    <td>{this.calculateRetirementDate(data.birthDate)}</td>
                     <td>
                       <div
                         className="links"
@@ -254,7 +211,7 @@ class EmployeeTable extends React.Component {
                 <td> {filteredData.department}</td>
                 <td> {filteredData.employeeType}</td>
                 <td> {filteredData.employeeStatus}</td>
-                <td>{this.getDateDifference(filteredData.birthDate)}</td>
+                <td>{this.calculateRetirementDate(filteredData.birthDate)}</td>
                 <td>
                   <div
                     className="links"
