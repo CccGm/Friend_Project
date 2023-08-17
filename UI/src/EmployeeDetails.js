@@ -47,25 +47,55 @@ class EmployeeDetails extends React.Component {
     const { employeeDetails } = this.state;
 
     return (
-      <div className="container employee-details-main">
-      <div className="employee-details">
-        <h1> Employee Details </h1>
-        {employeeDetails && (
-          <React.Fragment>
-            <h4>FirstName: {employeeDetails.firstName} </h4>
-            <h4>lastName: {employeeDetails.lastName} </h4>
-            <h4>Age: {employeeDetails.age} </h4>
-            <h4>Date of Join: {employeeDetails.dateOfJoining} </h4>
-            <h4>Title: {employeeDetails.title} </h4>
-            <h4>Department: {employeeDetails.department} </h4>
-            <h4>Employee Type: {employeeDetails.employeeType} </h4>
-            <Link to="/" className="submit-btn">
-              <button>Go Back</button>
-            </Link>
-          </React.Fragment>
-        )}
-      </div>
-      </div>
+      <>
+        <div className="container employee-details-main">
+          <div>
+            <h1> Employee Details </h1>
+          </div>
+
+          <div className="employee-details">
+            {employeeDetails && (
+              <React.Fragment>
+                <div>
+                  <tr>
+                    <th>FirstName: </th>
+                    <td> {employeeDetails.firstName}</td>
+                  </tr>
+                  <tr>
+                    <th>lastName: </th>
+                    <td> {employeeDetails.lastName}</td>
+                  </tr>
+                  <tr>
+                    <th>Age: </th>
+                    <td> {employeeDetails.age}</td>
+                  </tr>
+                  <tr>
+                    <th>Date of Join: </th>
+                    <td> {employeeDetails.dateOfJoining}</td>
+                  </tr>
+                  <tr>
+                    <th>Title: </th>
+                    <td> {employeeDetails.title}</td>
+                  </tr>
+                  <tr>
+                    <th>Department: </th>
+                    <td> {employeeDetails.department}</td>
+                  </tr>
+                  <tr>
+                    <th>Employee Type: </th>
+                    <td> {employeeDetails.employeeType}</td>
+                  </tr>
+                  <div className="row">
+                    <Link to="/" className="col-12 back-button submit-btn">
+                      <button>Go Back</button>
+                    </Link>
+                  </div>
+                </div>
+              </React.Fragment>
+            )}
+          </div>
+        </div>
+      </>
     );
   }
 }
