@@ -26,6 +26,23 @@ class EmployeeTable extends React.Component {
   }
 
   getEmployeeDetails = () => {
+    // const query = {
+    //   query: `query {
+    //     getEmployees {
+    //       _id,
+    //       firstName,
+    //       lastName,
+    //       age,
+    //       birthDate,
+    //       dateOfJoining,
+    //       title,
+    //       department,
+    //       employeeType,
+    //       employeeStatus,
+    //     }
+    //   }`,
+    // };
+
     const query = {
       query: `query {
         getEmployees {
@@ -49,8 +66,9 @@ class EmployeeTable extends React.Component {
       body: JSON.stringify(query),
     })
       .then((res) => res.json())
-      .then(({ data }) => {
-        this.setState({ empData: data.getEmployees });
+      .then((data) => {
+        console.log(data, "get dat");
+        this.setState({ empData: data.data.getEmployees });
       })
       .catch((e) => {
         console.log(e, "<=error");
@@ -75,12 +93,12 @@ class EmployeeTable extends React.Component {
     const yearsDifference =
       (retirementDateObj - new Date()) / (1000 * 60 * 60 * 24 * 365.25); // Average year length including leap years
 
-    if (f_year != "" && monthsDifference > 0) {
-      if (f_year == "less1year" && yearsDifference < 1) {
+    if (f_year !== "" && monthsDifference > 0) {
+      if (f_year === "less1year" && yearsDifference < 1) {
         return retirementDateObj.toISOString().split("T")[0];
-      } else if (f_year == "less5year" && yearsDifference < 5) {
+      } else if (f_year === "less5year" && yearsDifference < 5) {
         return retirementDateObj.toISOString().split("T")[0];
-      } else if (f_year == "less10year" && yearsDifference < 10) {
+      } else if (f_year === "less10year" && yearsDifference < 10) {
         return retirementDateObj.toISOString().split("T")[0];
       } else {
         return null;
@@ -118,8 +136,9 @@ class EmployeeTable extends React.Component {
       body: JSON.stringify({ query: employeeTypeQuery }),
     })
       .then((res) => res.json())
-      .then(({ data }) => {
-        this.setState({ filteredData: data.filterEmpByType });
+      .then((data) => {
+        console.log(data, "filter data");
+        this.setState({ filteredData: data.data.filterEmpByType });
       })
       .catch((e) => console.log(e, "<=error"));
   };

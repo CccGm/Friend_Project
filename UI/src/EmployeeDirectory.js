@@ -34,15 +34,16 @@ class EmployeeDirectory extends React.Component {
       }`,
     };
 
-    const response = await fetch("http://localhost:3200/graphql", {
+    fetch("http://localhost:3200/graphql", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(query),
-    });
-
-    let _response = await response.json();
-    let empData = _response.data.getEmployees;
-    this.setState({ employees: empData });
+    })
+      .then((res) => res.json())
+      .then(({ data }) => {
+        this.setState({ employees: data.getEmployees });
+        console.log(data.getEmployees, "get dat");
+      });
   };
 
   addEmployee = (employee) => {
