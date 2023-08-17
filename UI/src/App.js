@@ -4,7 +4,7 @@ import Page from "./Page";
 function App() {
   return (
     <div className="App">
-      <h1 className="page-header"> Employee Management Systems </h1>
+      {/* <h1 className="page-header"> Employee Management Systems </h1> */}
       <Page />
     </div>
   );

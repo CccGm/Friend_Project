@@ -20,30 +20,27 @@ class EmployeeDirectory extends React.Component {
     let query = {
       query: `query {
         getEmployees {
-          _id
+          _id,
           firstName,
           lastName,
           age,
-          birthDate,
-          dateOfJoining,
           title,
+          dateOfJoining,
           department,
-          employeeType,
-          employeeStatus
+          employeeType
         }
       }`,
     };
 
-    fetch("http://localhost:3200/graphql", {
+    const response = await fetch("http://localhost:3200/graphql", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(query),
-    })
-      .then((res) => res.json())
-      .then(({ data }) => {
-        this.setState({ employees: data.getEmployees });
-        console.log(data.getEmployees, "get dat");
-      });
+    });
+
+    let _response = await response.json();
+    let empData = _response.data.getEmployees;
+    this.setState({ employees: empData });
   };
 
   addEmployee = (employee) => {
@@ -54,10 +51,8 @@ class EmployeeDirectory extends React.Component {
           firstName: "${employee.firstName}" ,
           lastName: "${employee.lastName}", 
           age: "${employee.age}",
-          birthDate:"${employee.birthDate}",
           dateOfJoining: "${employee.dateOfJoining}" ,
           title: "${employee.title}" , 
-          employeeStatus:"${employee.employeeStatus}",
           department: "${employee.department}" ,
           employeeType: "${employee.employeeType}" 
         ) {
@@ -87,7 +82,9 @@ class EmployeeDirectory extends React.Component {
         <EmployeeSearch />
         <EmployeeCreate addEmployee={this.addEmployee} />
         {/* <EmployeeFilter /> */}
-        <EmployeeTable employees={employees} />
+        <div className="employee-pt">
+        <EmployeeTable employees={employees}  />
+        </div>
       </div>
     );
   }

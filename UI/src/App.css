@@ -4,46 +4,74 @@ body {
   padding-bottom: 50px;
   background-repeat: no-repeat;
   background-size: cover;
-  background-color: #000;
+  background-color: #f3f4f6;
 }
 
 h1 {
   margin: 0;
   padding: 20px;
-  text-align: center;
-  text-decoration: underline;
+  color: #000;
+
 }
+
+.employee-type {
+  color: #000;
+}
+
+.submit-btn {
+  text-align: end;
+}
+
 h3 {
   width: 50%;
   margin-left: 30px;
   padding: 10px 20px;
   border: 1px solid #ccc;
   background: black;
-  color: cadetblue;
+
 }
+
+.submit-btn-employ {
+  padding: 6px 40px;
+  font-size: 20px;
+  background-color: darkgray;
+  border: none;
+}
+
+.select-input {
+  padding: 11px;
+  border: 1px solid !important;
+}
+
 .form-control {
-  width: 80%;
-  display: flex;
+  /* width: 80%; */
+  /* display: flex; */
   margin: 0 auto;
   position: relative;
   align-items: center;
+  border: none;
+  border-radius: none !important;
+
 }
+
 .form-control label {
-  color: #fff;
-  margin: 20px 15px;
+  color: #000;
+  margin-bottom: 10px;
   width: 300px;
   font-weight: 500;
 }
+
 .create-employee {
   padding: 5px 0 30px 0;
+  padding-top: 66px;
 }
+
 #employee-form {
-  width: 80%;
-  margin: 0 auto;
-  padding-top: 20px;
-  background: black;
-  border: 1px solid cadetblue;
+  width: 50%;
+  padding: 40px;
+  background: #fff !important;
 }
+
 .error {
   color: red;
   width: 100%;
@@ -54,42 +82,62 @@ h3 {
   bottom: -5px;
   font-size: 14px;
 }
+
 .form-control input,
 .form-control select {
   position: relative;
   width: 100%;
   padding: 8px 5px;
   font-size: 15px;
+
 }
+
 .submit-btn button {
   outline: none;
   border: none;
-  color: #fff;
+  color: black;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 20px;
   padding: 10px 30px;
-  margin: 30px 10px;
-  background-color: cadetblue;
+  margin: 12px 0px 10px;
+  background-color: darkgray;
+  
 }
+
 th,
 td {
-  font-size: 14px;
-  padding: 5px 10px;
-  background: aliceblue;
+  font-size: 17px;
+  padding: 10px 12px;
+  background: #fff;
   color: #000;
+      border: 1px solid #dee2e6;
 }
+
 table {
-  width: 80%;
-  margin: 0 auto;
+  width: 100%;
+
+}
+
+.users-table {
+  padding: 15px;
+  background-color: #fff;
+  box-shadow: 0 10px 15px 1px rgba(69, 65, 78, .08);
+  border: 1px solid #eee;
+}
+
+.Employee-table {
+  padding: 20px 0px !important;
+  font-size: 1.5rem;
+  color: #575962;
 }
 
 nav {
   display: flex;
   padding: 10px;
   justify-content: space-evenly;
-  margin-bottom: 30px;
-  background:aliceblue;
+  background: aliceblue;
 }
+
 nav a {
   color: #000;
   font-size: 18px;
@@ -101,28 +149,113 @@ nav a {
   border-bottom: 1px solid #ccc;
   justify-content: space-evenly;
 }
+
 .filter-container form {
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .links {
   color: green;
   cursor: pointer;
-  text-decoration: underline;
+  
+}
+.edit-from-employeeEdit{
+  padding-top: 150px;
+}
+.employeeEdit{
+  background-color: white;
+  padding: 15px;
+  width: 50%;
+}
+.links:hover{
+  text-decoration-line: underline;
 }
 
 .employee-details {
   border: 1px solid;
   width: 50%;
   text-align: left;
-  margin: 0 auto;
+  margin: 0 auto ;
   padding: 0 50px;
+  color: #000;
+  background-color: white;
+  box-shadow: 0 10px 15px 1px rgba(69, 65, 78, .08);
+  border: 1px solid #eee;
 }
+
 .action-buttons {
   display: flex;
   justify-content: center;
 }
-.employeeEdit label{
+
+.employeeEdit label {
   color: #fff;
+}
+
+.employee-table th {
+  padding: 20px !important;
+}
+
+.navbar-item-main {
+  justify-content: end;
+}
+
+.nevbar-item-pt {
+  margin: 10px;
+}
+
+.navbar-top-fixed {
+  width: 100%;
+  position: fixed;
+  z-index: 99;
+}
+
+.main-Employee-type {
+  top: 150px;
+  position: relative;
+}
+
+.nevbar-item-pt:hover {
+  text-decoration-line: underline;
+}
+
+@media (min-width: 320px) and (max-width: 1100px) {
+  #employee-form {
+    width: 100%;
+  }
+}
+
+.employee-table-main {
+  overflow: auto;
+  background-color: #fff;
+  padding: 10px;
+  box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
+  border: 1px solid #eee;
+}
+
+.employee-pt {
+  position: relative;
+  top: -124px;
+}
+
+.employee-table th {
+  border: 1px solid #dee2e6;
+  background-color: #d1d1d1;
+}
+
+.employee-table td {
+  border: 1px solid #dee2e6;
+}
+.Employee-title{
+  color: #000;
+}
+@media (min-width: 320px) and (max-width: 1100px) {
+  .employeeEdit {
+    width: 100%;
+  }
+}
+.employee-details-main{
+  padding-top: 150px;
 }

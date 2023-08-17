@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 class EmployeeEdit extends React.Component {
   constructor(props) {
@@ -20,12 +20,10 @@ class EmployeeEdit extends React.Component {
           firstName,
           lastName,
           age,
-          birthDate,
           dateOfJoining,
           title,
           department,
-          employeeType,
-          employeeStatus
+          employeeType
         }
       }
     `;
@@ -51,12 +49,10 @@ class EmployeeEdit extends React.Component {
       firstName: form.firstName.value,
       lastName: form.lastName.value,
       age: form.age.value,
-      birthDate: form.birthDate.value,
       dateOfJoining: form.dateOfJoining.value,
       title: form.title.value,
       department: form.department.value,
       employeeType: form.employeeType.value,
-      employeeStatus: form.employeeStatus.value,
     };
     const url = window.location.href;
     const _id = url.split("/").pop();
@@ -67,12 +63,10 @@ class EmployeeEdit extends React.Component {
           firstName: "${data.firstName}" ,
           lastName: "${data.lastName}", 
           age: "${data.age}",
-          birthDate:"${data.birthDate}",
           dateOfJoining: "${data.dateOfJoining}" ,
           title: "${data.title}" , 
           department: "${data.department}" ,
-          employeeType: "${data.employeeType}",
-          employeeStatus:"${data.employeeStatus}",
+          employeeType: "${data.employeeType}" 
         }) {
           _id
         }
@@ -100,11 +94,16 @@ class EmployeeEdit extends React.Component {
     const { status, employee } = this.state;
 
     return (
-      <div>
+      <>
+      
+      <div className="container edit-from-employeeEdit">
+      <div className="Employee-title">
+        <h2>Employee Edit</h2>
+      </div>
         {status ? <Link to="/" /> : null}
         <form
           name="employeeEdit"
-          className="employeeEdit"
+          className="employeeEdit bg-light shadow rounded users-from-bg "
           onSubmit={this.handleUpdate}
         >
           <div className="form-control">
@@ -141,17 +140,6 @@ class EmployeeEdit extends React.Component {
           </div>
 
           <div className="form-control">
-            <label>Birth Date</label>
-            <input
-              type="date"
-              name="birthDate"
-              defaultValue={employee.birthDate}
-              placeholder="birthDate"
-              disabled
-            ></input>
-          </div>
-
-          <div className="form-control">
             <label>Date Of Joining</label>
             <input
               type="date"
@@ -162,21 +150,11 @@ class EmployeeEdit extends React.Component {
           </div>
 
           <div className="form-control">
-            <label>Status</label>
-            <select
-              name="employeeStatus"
-              defaultValue={employee.employeeStatus}
-            >
-              <option value="select">Select an Option</option>
-              <option value="Active">Active</option>
-              <option value="Deactive">Deactive</option>
-            </select>
-          </div>
-
-          <div className="form-control">
             <label>Title</label>
             <select name="title" defaultValue={employee.title}>
-              <option value="select">Select an Option</option>
+              <option value="select" disabled>
+                Select an Option
+              </option>
               <option value="employee">Employee</option>
               <option value="manager">Manager</option>
               <option value="director">Director</option>
@@ -186,8 +164,10 @@ class EmployeeEdit extends React.Component {
 
           <div className="form-control">
             <label>Department</label>
-            <select name="department" value={employee.department} disabled>
-              <option value="select">Select an Option</option>
+            <select name="department" defaultValue={employee.department}>
+              <option value="select" disabled>
+                Select an Option
+              </option>
               <option value="it">IT</option>
               <option value="marketing">Marketing</option>
               <option value="hr">HR</option>
@@ -197,26 +177,36 @@ class EmployeeEdit extends React.Component {
 
           <div className="form-control">
             <label>Employee Type</label>
-            <select name="employeeType" value={employee.employeeType} disabled>
-              <option value="select">Select an Option</option>
+            <select
+              name="employeeType"
+              defaultValue={employee.employeeType}
+              disabled
+            >
+              <option value="select" disabled>
+                Select an Option
+              </option>
               <option value="fullTime">Full Time</option>
               <option value="partTime">Part Time</option>
               <option value="contract">Contract</option>
               <option value="seasonal">Seasonal</option>
             </select>
           </div>
-          <div className="action-buttons">
+          <div className="row action-buttons">
+            <div className="col-6">
             <Link to="/" className="submit-btn">
               <button type="button">Go back</button>
             </Link>
-            <div className="submit-btn">
+            </div>
+            <div className="col-6 submit-btn">
               <button type="submit">Submit</button>
             </div>
           </div>
         </form>
       </div>
+      </>
     );
   }
 }
+
 
 export default EmployeeEdit;
