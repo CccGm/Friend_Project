@@ -16,7 +16,7 @@ class EmployeeFilter extends React.Component {
     const { empType } = this.state;
 
     return (
-      <div className=" p-3 m-3  bg-light shadow rounded mb-8 users-card-color flex flex-col">
+      <div className=" p-3  bg-light shadow rounded mb-8 users-card-color flex flex-col">
         <div className="row justify-content-center">
           <div className="col-4 employee-type">
             <h2> Select Employee Type: </h2>

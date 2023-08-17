@@ -13,7 +13,8 @@ h1 {
   color: #000;
 
 }
-.back-button{
+
+.back-button {
   padding: 20px;
 }
 
@@ -65,7 +66,7 @@ h3 {
 }
 
 .create-employee {
- 
+
   padding-top: 66px;
 }
 
@@ -77,7 +78,7 @@ h3 {
 
 .error {
   color: red;
-  width: 100%; 
+  width: 100%;
   font-size: 14px;
 }
 
@@ -99,7 +100,7 @@ h3 {
   padding: 10px 30px;
   margin: 12px 0px 10px;
   background-color: darkgray;
-  
+
 }
 
 th,
@@ -108,7 +109,11 @@ td {
   padding: 10px 12px;
   background: #fff;
   color: #000;
-      border: 1px solid #dee2e6;
+  border: 1px solid #dee2e6;
+}
+
+.employee-details th {
+  width: 50%;
 }
 
 table {
@@ -157,17 +162,20 @@ nav a {
 .links {
   color: green;
   cursor: pointer;
-  
+
 }
-.edit-from-employeeEdit{
+
+.edit-from-employeeEdit {
   padding-top: 150px;
 }
-.employeeEdit{
+
+.employeeEdit {
   background-color: white;
   padding: 15px;
   width: 50%;
 }
-.links:hover{
+
+.links:hover {
   text-decoration-line: underline;
 }
 
@@ -187,7 +195,7 @@ nav a {
   justify-content: center;
 }
 
-.employee-details h4{
+.employee-details h4 {
   border: 1px solid;
   padding: 10px;
 }
@@ -223,12 +231,14 @@ nav a {
   #employee-form {
     width: 100%;
   }
-  .employee-details{
+
+  .employee-details {
     width: 100%;
   }
 }
-.employee-details td{
-width: 72%;
+
+.employee-details td {
+  width: 72%;
 }
 
 .employee-table-main {
@@ -252,14 +262,17 @@ width: 72%;
 .employee-table td {
   border: 1px solid #dee2e6;
 }
-.Employee-title{
+
+.Employee-title {
   color: #000;
 }
+
 @media (min-width: 320px) and (max-width: 1100px) {
   .employeeEdit {
     width: 100%;
   }
 }
-.employee-details-main{
+
+.employee-details-main {
   padding-top: 150px;
 }

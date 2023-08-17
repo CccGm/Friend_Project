@@ -81,45 +81,44 @@ class EmployeeDetails extends React.Component {
               <React.Fragment>
                 <div>
                   <tr>
-                    <th>FirstName: </th>
+                    <th>FirstName </th>
                     <td> {employeeDetails.firstName}</td>
                   </tr>
                   <tr>
-                    <th>lastName: </th>
+                    <th>lastName </th>
                     <td> {employeeDetails.lastName}</td>
                   </tr>
                   <tr>
-                    <th>Age: </th>
+                    <th>Age </th>
                     <td> {employeeDetails.age}</td>
                   </tr>
                   <tr>
-                    <th>Birth of Date: </th>
+                    <th>Birth of Date </th>
                     <td> {employeeDetails.birthDate}</td>
                   </tr>
                   <tr>
-                    <th>Date of Join: </th>
+                    <th>Date of Join </th>
                     <td> {employeeDetails.dateOfJoining}</td>
                   </tr>
                   <tr>
-                    <th>Title: </th>
+                    <th>Title </th>
                     <td> {employeeDetails.title}</td>
                   </tr>
                   <tr>
-                    <th>Empoyee Status: </th>
+                    <th>Empoyee Status </th>
                     <td> {employeeDetails.employeeStatus}</td>
                   </tr>
                   <tr>
-                    <th>Department: </th>
+                    <th>Department </th>
                     <td> {employeeDetails.department}</td>
                   </tr>
                   <tr>
-                    <th>Employee Type: </th>
+                    <th>Employee Type </th>
                     <td> {employeeDetails.employeeType}</td>
                   </tr>
                   <tr>
-                    <th>Employee Retirement:: </th>
+                    <th>Employee Retirement </th>
                     <td>
-                      {" "}
                       {this.calculateRetirementDate(employeeDetails.birthDate)}
                     </td>
                   </tr>
