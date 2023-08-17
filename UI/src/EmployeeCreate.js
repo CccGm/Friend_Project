@@ -212,10 +212,10 @@ class EmployeeCreate extends React.Component {
                 <option value="select" disabled>
                   Select an Option
                 </option>
-                <option value="fullTime">Full Time</option>
-                <option value="partTime">Part Time</option>
-                <option value="contract">Contract</option>
-                <option value="seasonal">Seasonal</option>
+                <option value="FullTime">Full Time</option>
+                <option value="PartTime">Part Time</option>
+                <option value="Contract">Contract</option>
+                <option value="Seasonal">Seasonal</option>
               </select>
               {errors && <p className="error"> {errors.empTypeErr} </p>}
             </div>

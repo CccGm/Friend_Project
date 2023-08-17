@@ -16,14 +16,16 @@ class EmployeeEdit extends React.Component {
     const empDetailsQuery = `
       mutation {
         EmployeeDetails(_id: "${_id}") {
-          _id
+           _id
           firstName,
           lastName,
           age,
+          birthDate,
           dateOfJoining,
           title,
           department,
-          employeeType
+          employeeType,
+          employeeStatus
         }
       }
     `;
@@ -49,10 +51,12 @@ class EmployeeEdit extends React.Component {
       firstName: form.firstName.value,
       lastName: form.lastName.value,
       age: form.age.value,
+      birthDate: form.birthDate.value,
       dateOfJoining: form.dateOfJoining.value,
       title: form.title.value,
       department: form.department.value,
       employeeType: form.employeeType.value,
+      employeeStatus: form.employeeStatus.value,
     };
     const url = window.location.href;
     const _id = url.split("/").pop();
@@ -63,10 +67,12 @@ class EmployeeEdit extends React.Component {
           firstName: "${data.firstName}" ,
           lastName: "${data.lastName}", 
           age: "${data.age}",
+          birthDate:"${data.birthDate}",
           dateOfJoining: "${data.dateOfJoining}" ,
           title: "${data.title}" , 
           department: "${data.department}" ,
-          employeeType: "${data.employeeType}" 
+          employeeType: "${data.employeeType}",
+          employeeStatus:"${data.employeeStatus}",
         }) {
           _id
         }
@@ -95,118 +101,136 @@ class EmployeeEdit extends React.Component {
 
     return (
       <>
-      
-      <div className="container edit-from-employeeEdit">
-      <div className="Employee-title">
-        <h2>Employee Edit</h2>
-      </div>
-        {status ? <Link to="/" /> : null}
-        <form
-          name="employeeEdit"
-          className="employeeEdit bg-light shadow rounded users-from-bg "
-          onSubmit={this.handleUpdate}
-        >
-          <div className="form-control">
-            <label>First Name</label>
-            <input
-              type="text"
-              name="firstName"
-              defaultValue={employee.firstName}
-              placeholder="First name"
-              disabled
-            ></input>
+        <div className="container edit-from-employeeEdit">
+          <div className="Employee-title">
+            <h2>Employee Edit</h2>
           </div>
-
-          <div className="form-control">
-            <label>Last Name</label>
-            <input
-              type="text"
-              name="lastName"
-              defaultValue={employee.lastName}
-              placeholder="Last name"
-              disabled
-            />
-          </div>
-
-          <div className="form-control">
-            <label>Age</label>
-            <input
-              type="number"
-              name="age"
-              defaultValue={employee.age}
-              placeholder="Age"
-              disabled
-            ></input>
-          </div>
-
-          <div className="form-control">
-            <label>Date Of Joining</label>
-            <input
-              type="date"
-              name="dateOfJoining"
-              defaultValue={employee.dateOfJoining}
-              disabled
-            ></input>
-          </div>
-
-          <div className="form-control">
-            <label>Title</label>
-            <select name="title" defaultValue={employee.title}>
-              <option value="select" disabled>
-                Select an Option
-              </option>
-              <option value="employee">Employee</option>
-              <option value="manager">Manager</option>
-              <option value="director">Director</option>
-              <option value="vp">VP</option>
-            </select>
-          </div>
-
-          <div className="form-control">
-            <label>Department</label>
-            <select name="department" defaultValue={employee.department}>
-              <option value="select" disabled>
-                Select an Option
-              </option>
-              <option value="it">IT</option>
-              <option value="marketing">Marketing</option>
-              <option value="hr">HR</option>
-              <option value="engineering">Engineering</option>
-            </select>
-          </div>
-
-          <div className="form-control">
-            <label>Employee Type</label>
-            <select
-              name="employeeType"
-              defaultValue={employee.employeeType}
-              disabled
-            >
-              <option value="select" disabled>
-                Select an Option
-              </option>
-              <option value="fullTime">Full Time</option>
-              <option value="partTime">Part Time</option>
-              <option value="contract">Contract</option>
-              <option value="seasonal">Seasonal</option>
-            </select>
-          </div>
-          <div className="row action-buttons">
-            <div className="col-6">
-            <Link to="/" className="submit-btn">
-              <button type="button">Go back</button>
-            </Link>
+          {status ? <Link to="/" /> : null}
+          <form
+            name="employeeEdit"
+            className="employeeEdit bg-light shadow rounded users-from-bg "
+            onSubmit={this.handleUpdate}
+          >
+            <div className="form-control">
+              <label>First Name</label>
+              <input
+                type="text"
+                name="firstName"
+                defaultValue={employee.firstName}
+                placeholder="First name"
+                disabled
+              ></input>
             </div>
-            <div className="col-6 submit-btn">
-              <button type="submit">Submit</button>
+
+            <div className="form-control">
+              <label>Last Name</label>
+              <input
+                type="text"
+                name="lastName"
+                defaultValue={employee.lastName}
+                placeholder="Last name"
+                disabled
+              />
             </div>
-          </div>
-        </form>
-      </div>
+
+            <div className="form-control">
+              <label>Age</label>
+              <input
+                type="number"
+                name="age"
+                defaultValue={employee.age}
+                placeholder="Age"
+                disabled
+              ></input>
+            </div>
+
+            <div className="form-control">
+              <label>Birth Date</label>
+              <input
+                type="date"
+                name="birthDate"
+                defaultValue={employee.birthDate}
+                disabled
+              ></input>
+            </div>
+
+            <div className="form-control">
+              <label>Date Of Joining</label>
+              <input
+                type="date"
+                name="dateOfJoining"
+                defaultValue={employee.dateOfJoining}
+                disabled
+              ></input>
+            </div>
+
+            <div className="form-control">
+              <label>Status</label>
+              <select
+                name="employeeStatus"
+                defaultValue={employee.employeeStatus}
+              >
+                <option value="select">Select an Option</option>
+                <option value="Active">Active</option>
+                <option value="Deactive">Deactive</option>
+              </select>
+            </div>
+
+            <div className="form-control">
+              <label>Title</label>
+              <select name="title" value={employee.title}>
+                <option value="select">Select an Option</option>
+                <option value="employee">Employee</option>
+                <option value="manager">Manager</option>
+                <option value="director">Director</option>
+                <option value="vp">VP</option>
+              </select>
+            </div>
+
+            <div className="form-control">
+              <label>Department</label>
+              <select name="department" defaultValue={employee.department}>
+                <option value="select" disabled>
+                  Select an Option
+                </option>
+                <option value="it">IT</option>
+                <option value="marketing">Marketing</option>
+                <option value="hr">HR</option>
+                <option value="engineering">Engineering</option>
+              </select>
+            </div>
+
+            <div className="form-control">
+              <label>Employee Type</label>
+              <select
+                name="employeeType"
+                defaultValue={employee.employeeType}
+                disabled
+              >
+                <option value="select" disabled>
+                  Select an Option
+                </option>
+                <option value="fullTime">Full Time</option>
+                <option value="partTime">Part Time</option>
+                <option value="contract">Contract</option>
+                <option value="seasonal">Seasonal</option>
+              </select>
+            </div>
+            <div className="row action-buttons">
+              <div className="col-6">
+                <Link to="/" className="submit-btn">
+                  <button type="button">Go back</button>
+                </Link>
+              </div>
+              <div className="col-6 submit-btn">
+                <button type="submit">Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
       </>
     );
   }
 }
-
 
 export default EmployeeEdit;

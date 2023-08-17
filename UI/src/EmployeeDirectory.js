@@ -20,14 +20,16 @@ class EmployeeDirectory extends React.Component {
     let query = {
       query: `query {
         getEmployees {
-          _id,
+          _id
           firstName,
           lastName,
           age,
-          title,
+          birthDate,
           dateOfJoining,
+          title,
           department,
-          employeeType
+          employeeType,
+          employeeStatus
         }
       }`,
     };
@@ -51,10 +53,12 @@ class EmployeeDirectory extends React.Component {
           firstName: "${employee.firstName}" ,
           lastName: "${employee.lastName}", 
           age: "${employee.age}",
+          birthDate:"${employee.birthDate}",
           dateOfJoining: "${employee.dateOfJoining}" ,
           title: "${employee.title}" , 
+          employeeStatus:"${employee.employeeStatus}",
           department: "${employee.department}" ,
-          employeeType: "${employee.employeeType}" 
+          employeeType: "${employee.employeeType}"
         ) {
           firstName,
           lastName
@@ -83,7 +87,7 @@ class EmployeeDirectory extends React.Component {
         <EmployeeCreate addEmployee={this.addEmployee} />
         {/* <EmployeeFilter /> */}
         <div className="employee-pt">
-        <EmployeeTable employees={employees}  />
+          <EmployeeTable employees={employees} />
         </div>
       </div>
     );
