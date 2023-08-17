@@ -17,7 +17,7 @@ class YearFilter extends React.Component {
 
     return (
       <div className=" p-3 m-3  bg-light shadow rounded mb-8 users-card-color flex flex-col ">
-        <div className="row">
+        <div className="row justify-content-center">
           <div className="col-4 employee-type">
             <h2> Filter By Year: </h2>
           </div>

@@ -76,6 +76,7 @@ const resolvers = {
     updateEmployee,
     deleteEmp,
     EmployeeDetails,
+    filterEmpByType,
   },
 };
 

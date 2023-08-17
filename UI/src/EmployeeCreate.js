@@ -118,7 +118,7 @@ class EmployeeCreate extends React.Component {
 
     return (
       <div className="container">
-        <div className="row create-employee">
+        <div className="row create-employee ">
           <div className="col-12">
             <h1> Employee Form </h1>
           </div>

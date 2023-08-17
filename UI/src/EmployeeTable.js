@@ -7,14 +7,14 @@ class EmployeeTable extends React.Component {
     super(props);
 
     const params = new URLSearchParams(window.location.search);
-    const value = params.get("emp-Type");
+    const empValue = params.get("emp-Type");
     const yearValue = params.get("filter-year");
 
     this.state = {
       empData: props.employees,
       filteredData: null,
       filterYear: yearValue || "",
-      value: value || "",
+      value: empValue || "",
     };
   }
 
@@ -97,6 +97,7 @@ class EmployeeTable extends React.Component {
   };
 
   fetchFilteredData = () => {
+    console.log(this.state.value, "filter---");
     const employeeTypeQuery = `
       mutation {
         filterEmpByType(employeeType: "${this.state.value}") {
@@ -120,9 +121,9 @@ class EmployeeTable extends React.Component {
       body: JSON.stringify({ query: employeeTypeQuery }),
     })
       .then((res) => res.json())
-      .then(({ data }) => {
+      .then((data) => {
         console.log(data, "filter data");
-        this.setState({ filteredData: data.filterEmpByType });
+        this.setState({ filteredData: data.data.filterEmpByType });
       });
   };
 
