@@ -6,7 +6,6 @@ class EmployeeDetails extends React.Component {
     super(props);
     this.state = {
       employeeDetails: null,
-      retirement: null,
     };
   }
 
@@ -21,12 +20,10 @@ class EmployeeDetails extends React.Component {
           firstName,
           lastName,
           age,
-          birthDate,
           dateOfJoining,
           title,
           department,
-          employeeType,
-          employeeStatus
+          employeeType
         }
       }
     `;
@@ -39,36 +36,18 @@ class EmployeeDetails extends React.Component {
       .then(async (response) => {
         const { data } = await response.json();
         this.setState({ employeeDetails: data.EmployeeDetails });
+        console.log(data, "given data");
       })
       .catch((error) =>
         console.error("Error fetching employee details:", error)
       );
   }
 
-  calculateRetirementDate = (birthdate) => {
-    const birthDateObj = new Date(birthdate);
-    const retirementYear = birthDateObj.getFullYear() + 65;
-    const retirementDateObj = new Date(
-      retirementYear,
-      birthDateObj.getMonth(),
-      birthDateObj.getDate()
-    );
-
-    // Calculate the difference in months between the current date and the retirement date
-    const monthsDifference =
-      (retirementDateObj - new Date()) / (1000 * 60 * 60 * 24 * 30.44); // Average month length
-
-    if (monthsDifference > 0) {
-      return retirementDateObj.toISOString().split("T")[0];
-    } else {
-      return "Emplyee is Retire";
-    }
-  };
-
   render() {
     const { employeeDetails } = this.state;
 
     return (
+      <div className="container employee-details-main">
       <div className="employee-details">
         <h1> Employee Details </h1>
         {employeeDetails && (
@@ -76,21 +55,16 @@ class EmployeeDetails extends React.Component {
             <h4>FirstName: {employeeDetails.firstName} </h4>
             <h4>lastName: {employeeDetails.lastName} </h4>
             <h4>Age: {employeeDetails.age} </h4>
-            <h4>Birth Date: {employeeDetails.birthDate} </h4>
             <h4>Date of Join: {employeeDetails.dateOfJoining} </h4>
             <h4>Title: {employeeDetails.title} </h4>
-            <h4>Status: {employeeDetails.employeeStatus} </h4>
             <h4>Department: {employeeDetails.department} </h4>
             <h4>Employee Type: {employeeDetails.employeeType} </h4>
-            <h4>
-              Employee Retirement:{" "}
-              {this.calculateRetirementDate(employeeDetails.birthDate)}
-            </h4>
             <Link to="/" className="submit-btn">
               <button>Go Back</button>
             </Link>
           </React.Fragment>
         )}
+      </div>
       </div>
     );
   }

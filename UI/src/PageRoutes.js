@@ -5,7 +5,6 @@ import EmployeeTable from "./EmployeeTable";
 import EmployeeCreate from "./EmployeeCreate";
 import EmployeeDetails from "./EmployeeDetails";
 import EmployeeDirectory from "./EmployeeDirectory";
-import UpComingRetirement from "./UpComingRetirement";
 
 const NotFound = () => <h2>This Path is Not Available. </h2>;
 
@@ -16,7 +15,6 @@ class PageRoutes extends React.Component {
         <Route path="/" element={<EmployeeDirectory />} />
         <Route path="/employee-data" element={<EmployeeTable />} />
         <Route path="/add-employee" element={<EmployeeCreate />} />
-        <Route path="/upcoming-retirement" element={<UpComingRetirement />} />
         <Route path="/*" element={<NotFound />} />
         <Route path="/edit/:_id" element={<EmployeeEdit />} />
         <Route path="/details/:_id" element={<EmployeeDetails />} />
