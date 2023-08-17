@@ -19,13 +19,19 @@ class Page extends React.Component {
               aria-controls="navbarNavAltMarkup"
               aria-expanded="false"
               aria-label="Toggle navigation"
-
             >
               <span className="navbar-toggler-icon"></span>
             </button>
-            <div className="collapse navbar-collapse navbar-item-main" id="navbarNavAltMarkup">
+            <div
+              className="collapse navbar-collapse navbar-item-main"
+              id="navbarNavAltMarkup"
+            >
               <div className="navbar-nav">
-                <a className="nav-link nevbar-item-pt" aria-current="page" href="/">
+                <a
+                  className="nav-link nevbar-item-pt"
+                  aria-current="page"
+                  href="/"
+                >
                   Home
                 </a>
                 <a className="nav-link nevbar-item-pt" href="add-employee">
@@ -33,6 +39,12 @@ class Page extends React.Component {
                 </a>
                 <a className="nav-link nevbar-item-pt" href="employee-data">
                   Employee Data
+                </a>
+                <a
+                  className="nav-link nevbar-item-pt"
+                  href="upcoming-retirement"
+                >
+                  Up Coming Retirement
                 </a>
               </div>
             </div>

@@ -15,19 +15,23 @@ class EmployeeCreate extends React.Component {
       firstName: form.firstName.value,
       lastName: form.lastName.value,
       age: form.age.value,
+      birthDate: form.birthDate.value,
       dateOfJoining: form.dateOfJoining.value,
       title: form.title.value,
       department: form.department.value,
       employeeType: form.employeeType.value,
+      employeeStatus: form.employeeStatus.value,
     };
     let _errors = {
       fnameErr: null,
       lnameErr: null,
       ageErr: null,
+      birthDate: null,
       dateOfJoiningErr: null,
       titleErr: null,
       departmentErr: null,
       empTypeErr: null,
+      employeeStatus: null,
     };
     if (employee.firstName === "") {
       _errors.fnameErr = "First name required";
@@ -38,6 +42,9 @@ class EmployeeCreate extends React.Component {
     if (employee.age === "") {
       _errors.ageErr = "Age is required";
     }
+    if (employee.birthDate === "") {
+      _errors.birthDateErr = "birthDate is required";
+    }
     if (employee.dateOfJoining === "") {
       _errors.dateOfJoiningErr = "Date of joining is required";
     }
@@ -46,6 +53,9 @@ class EmployeeCreate extends React.Component {
     }
     if (employee.department === "") {
       _errors.departmentErr = "Department is required";
+    }
+    if (employee.employeeStatus === "") {
+      _errors.employeeStatusErr = "employeeStatus is required";
     }
     if (employee.employeeType === "") {
       _errors.empTypeErr = "Employee Type is required";
@@ -56,8 +66,10 @@ class EmployeeCreate extends React.Component {
       employee.firstName &&
       employee.lastName &&
       employee.age &&
+      employee.birthDate &&
       employee.dateOfJoining &&
       employee.title &&
+      employee.employeeStatus &&
       employee.department &&
       employee.employeeType
     ) {
@@ -76,10 +88,12 @@ class EmployeeCreate extends React.Component {
           firstName: "${employee.firstName}" ,
           lastName: "${employee.lastName}", 
           age: "${employee.age}",
+          birthDate:"${employee.birthDate}",
           dateOfJoining: "${employee.dateOfJoining}" ,
           title: "${employee.title}" , 
+          employeeStatus:"${employee.employeeStatus}",
           department: "${employee.department}" ,
-          employeeType: "${employee.employeeType}" 
+          employeeType: "${employee.employeeType}"  
         ) {
           firstName,
           lastName
@@ -104,85 +118,118 @@ class EmployeeCreate extends React.Component {
 
     return (
       <div className="container">
+<<<<<<< HEAD
       <div className="container row create-employee">
         <div className="col-12">
         <h1> Employee Form </h1>
+=======
+        <div className="row create-employee">
+          <div className="col-12">
+            <h1> Employee Form </h1>
+          </div>
+          <form
+            className="col-12 bg-light shadow rounded users-from-bg "
+            id="employee-form"
+            name="employeeForm"
+            onSubmit={this.onSubmit}
+          >
+            <div className="form-control">
+              <label>First Name</label>
+              <input
+                type="text"
+                name="firstName"
+                placeholder="First name"
+              ></input>
+              {errors && <p className="error"> {errors.fnameErr} </p>}
+            </div>
+
+            <div className="form-control">
+              <label>Last Name</label>
+              <input
+                type="text"
+                name="lastName"
+                placeholder="Last name"
+              ></input>
+              {errors && <p className="error"> {errors.lnameErr} </p>}
+            </div>
+
+            <div className="form-control">
+              <label>Age</label>
+              <input type="number" name="age" placeholder="Age"></input>
+              {errors && <p className="error"> {errors.ageErr} </p>}
+            </div>
+
+            <div className="form-control">
+              <label>Birth Date</label>
+              <input type="date" name="birthDate"></input>
+              {errors && <p className="error"> {errors.birthDateErr} </p>}
+            </div>
+
+            <div className="form-control">
+              <label>Date Of Joining</label>
+              <input type="date" name="dateOfJoining"></input>
+              {errors && <p className="error"> {errors.dateOfJoiningErr} </p>}
+            </div>
+
+            <div className="form-control">
+              <label>Title</label>
+              <select name="title">
+                <option value="select" disabled>
+                  Select an Option
+                </option>
+                <option value="Employee">Employee</option>
+                <option value="Manager">Manager</option>
+                <option value="Director">Director</option>
+                <option value="VP">VP</option>
+              </select>
+              {errors && <p className="error"> {errors.titleErr} </p>}
+            </div>
+
+            <div className="form-control">
+              <label>Status</label>
+              <select name="employeeStatus">
+                <option value="select" disabled>
+                  Select an Option
+                </option>
+                <option value="Active">Active</option>
+                <option value="Deactive">Deactive</option>
+              </select>
+              {errors && <p className="error"> {errors.employeeStatusErr} </p>}
+            </div>
+
+            <div className="form-control">
+              <label>Department</label>
+              <select name="department">
+                <option value="select" disabled>
+                  Select an Option
+                </option>
+                <option value="IT">IT</option>
+                <option value="Marketing">Marketing</option>
+                <option value="HR">HR</option>
+                <option value="Engineering">Engineering</option>
+              </select>
+              {errors && <p className="error"> {errors.departmentErr} </p>}
+            </div>
+
+            <div className="form-control">
+              <label>Employee Type</label>
+              <select name="employeeType">
+                <option value="select" disabled>
+                  Select an Option
+                </option>
+                <option value="FullTime">Full Time</option>
+                <option value="PartTime">Part Time</option>
+                <option value="Contract">Contract</option>
+                <option value="Seasonal">Seasonal</option>
+              </select>
+              {errors && <p className="error"> {errors.empTypeErr} </p>}
+            </div>
+            <div className="submit-btn form-control">
+              <button type="submit">Submit</button>
+            </div>
+          </form>
+>>>>>>> 958d4ea8382af0257c7a054ec20b00a00b637d9f
         </div>
-        <form className="col-12 bg-light shadow rounded users-from-bg " id="employee-form" name="employeeForm" onSubmit={this.onSubmit}>
-          <div className="form-control">
-            <label>First Name</label>
-            <input
-              type="text"
-              name="firstName"
-              placeholder="First name"
-            ></input>
-            {errors && <p className="error"> {errors.fnameErr} </p>}
-          </div>
-
-          <div className="form-control">
-            <label>Last Name</label>
-            <input type="text" name="lastName" placeholder="Last name"></input>
-            {errors && <p className="error"> {errors.lnameErr} </p>}
-          </div>
-
-          <div className="form-control">
-            <label>Age</label>
-            <input type="number" name="age" placeholder="Age"></input>
-            {errors && <p className="error"> {errors.ageErr} </p>}
-          </div>
-
-          <div className="form-control">
-            <label>Date Of Joining</label>
-            <input type="date" name="dateOfJoining"></input>
-            {errors && <p className="error"> {errors.dateOfJoiningErr} </p>}
-          </div>
-
-          <div className="form-control">
-            <label>Title</label>
-            <select name="title">
-              <option value="select" disabled>
-                Select an Option
-              </option>
-              <option value="employee">Employee</option>
-              <option value="manager">Manager</option>
-              <option value="director">Director</option>
-              <option value="vp">VP</option>
-            </select>
-            {errors && <p className="error"> {errors.titleErr} </p>}
-          </div>
-
-          <div className="form-control">
-            <label>Department</label>
-            <select name="department">
-              <option value="select" disabled>
-                Select an Option
-              </option>
-              <option value="it">IT</option>
-              <option value="marketing">Marketing</option>
-              <option value="hr">HR</option>
-              <option value="engineering">Engineering</option>
-            </select>
-            {errors && <p className="error"> {errors.departmentErr} </p>}
-          </div>
-
-          <div className="form-control">
-            <label>Employee Type</label>
-            <select name="employeeType">
-              <option value="select" disabled>
-                Select an Option
-              </option>
-              <option value="fullTime">Full Time</option>
-              <option value="partTime">Part Time</option>
-              <option value="contract">Contract</option>
-              <option value="seasonal">Seasonal</option>
-            </select>
-            {errors && <p className="error"> {errors.empTypeErr} </p>}
-          </div>
-          <div className="submit-btn form-control">
-            <button type="submit">Submit</button>
-          </div>
-        </form>
-      </div>
       </div>
     );
   }

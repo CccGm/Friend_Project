@@ -1,41 +1,40 @@
 import React from "react";
 
-class EmployeeFilter extends React.Component {
+class YearFilter extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      empType: "",
+      filterYear: "",
     };
   }
 
-  onChangeFilter = (e) => {
-    this.setState({ empType: e.target.value });
+  onChangeYear = (e) => {
+    this.setState({ filterYear: e.target.value });
   };
 
   render() {
-    const { empType } = this.state;
+    const { filterYear } = this.state;
 
     return (
       <div className=" p-3 m-3  bg-light shadow rounded mb-8 users-card-color flex flex-col ">
         <div className="row">
           <div className="col-4 employee-type">
-            <h2> Select Employee Type: </h2>
+            <h2> Filter By Year: </h2>
           </div>
 
-          <form className="col-4 " name="employeeFilter">
+          <form className="col-4 " name="YearFilter">
             <div className="row">
               <div className="col-8">
                 <select
-                  value={empType}
+                  value={filterYear}
                   className="form-control select-input"
-                  name="emp-Type"
-                  onChange={this.onChangeFilter}
+                  name="filter-year"
+                  onChange={this.onChangeYear}
                 >
                   <option value="">All</option>
-                  <option value="fullTime">Full Time</option>
-                  <option value="partTime">Part Time</option>
-                  <option value="contract">Contract</option>
-                  <option value="seasonal">Seasonal</option>
+                  <option value="less1year">Less than 1 Year</option>
+                  <option value="less5year">Less than 5 Year</option>
+                  <option value="less10year">Less than 10 Year</option>
                 </select>
               </div>
               <div className="col-4 text-end">
@@ -51,4 +50,4 @@ class EmployeeFilter extends React.Component {
   }
 }
 
-export default EmployeeFilter;
+export default YearFilter;

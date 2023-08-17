@@ -1,28 +1,17 @@
 import React from "react";
-import EmployeeFilter from "./EmployeeFilter";
-import YearFilter from "./YearFilter";
 
-class EmployeeTable extends React.Component {
+class UpComingRetirement extends React.Component {
   constructor(props) {
     super(props);
 
-    const params = new URLSearchParams(window.location.search);
-    const value = params.get("emp-Type");
-    const yearValue = params.get("filter-year");
-
     this.state = {
       empData: props.employees,
-      filteredData: null,
-      filterYear: yearValue || "",
-      value: value || "",
     };
   }
 
   componentDidMount() {
     if (this.state.value === "" || !this.state.value) {
       this.getEmployeeDetails();
-    } else {
-      this.fetchFilteredData();
     }
   }
 
@@ -55,7 +44,7 @@ class EmployeeTable extends React.Component {
         console.log(data.getEmployees, "get dat");
       })
       .catch((e) => {
-        console.log(e, "<=error");
+        console.log(e, "<=errpe");
       });
   };
 
@@ -68,62 +57,18 @@ class EmployeeTable extends React.Component {
       birthDateObj.getDate()
     );
 
-    let f_year = this.state.filterYear;
-
-    // Calculate the difference in months between the current date and the retirement date
     const monthsDifference =
-      (retirementDateObj - new Date()) / (1000 * 60 * 60 * 24 * 30.44); // Average month length
+      (retirementDateObj - new Date()) / (1000 * 60 * 60 * 24 * 30.44);
 
-    const yearsDifference =
-      (retirementDateObj - new Date()) / (1000 * 60 * 60 * 24 * 365.25); // Average year length including leap years
-
-    if (f_year !== "" && monthsDifference > 0) {
-      if (f_year === "less1year" && yearsDifference < 1) {
-        return retirementDateObj.toISOString().split("T")[0];
-      } else if (f_year === "less5year" && yearsDifference < 5) {
-        return retirementDateObj.toISOString().split("T")[0];
-      } else if (f_year === "less10year" && yearsDifference < 10) {
-        return retirementDateObj.toISOString().split("T")[0];
-      } else {
-        return null;
-      }
-    } else {
+    if (monthsDifference < 6) {
       if (monthsDifference > 0) {
         return retirementDateObj.toISOString().split("T")[0];
       } else {
-        return "Emplyee is Retire";
+        return "Emplyee is Retire.";
       }
+    } else {
+      return "Retirement date is more than 6 months away.";
     }
-  };
-
-  fetchFilteredData = () => {
-    const employeeTypeQuery = `
-      mutation {
-        filterEmpByType(employeeType: "${this.state.value}") {
-          _id,
-          firstName,
-          lastName,
-          age,
-          birthDate,
-          dateOfJoining,
-          title,
-          department,
-          employeeType,
-          employeeStatus,
-        }
-      }
-    `;
-
-    fetch("http://localhost:3200/graphql", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ query: employeeTypeQuery }),
-    })
-      .then((res) => res.json())
-      .then(({ data }) => {
-        console.log(data, "filter data");
-        this.setState({ filteredData: data.filterEmpByType });
-      });
   };
 
   onEmpDelete = async (deleteId) => {
@@ -145,13 +90,11 @@ class EmployeeTable extends React.Component {
   };
 
   render() {
-    const { empData, filteredData } = this.state;
+    const { empData } = this.state;
 
     return (
       <div className="container main-Employee-type">
-        <EmployeeFilter />
-        <YearFilter />
-        <h1 className="Employee-table">Employee Table</h1>
+        <h1>Up Coming Retirment Details</h1>
         <div className="employee-table-main">
           <table className="users-table">
             <thead className="employee-table">
@@ -171,12 +114,15 @@ class EmployeeTable extends React.Component {
                 <th>Delete</th>
               </tr>
             </thead>
-
             <tbody>
-              {empData && empData.length > 0 ? (
-                empData.map((data, index) => {
-                  {
-                    if (this.calculateRetirementDate(data.birthDate) != null)
+              {empData && empData.length > 0
+                ? empData.map((data, index) => {
+                    if (
+                      this.calculateRetirementDate(data.birthDate) !=
+                        "Emplyee is Retire." &&
+                      this.calculateRetirementDate(data.birthDate) !=
+                        "Retirement date is more than 6 months away."
+                    ) {
                       return (
                         <tr key={index}>
                           <td> {data.firstName}</td>
@@ -188,6 +134,7 @@ class EmployeeTable extends React.Component {
                           <td> {data.employeeStatus}</td>
                           <td> {data.department}</td>
                           <td> {data.employeeType}</td>
+                          {/* <td>{this.getDateDifference(data.birthDate)}</td> */}
                           <td>
                             {this.calculateRetirementDate(data.birthDate)}
                           </td>
@@ -198,7 +145,7 @@ class EmployeeTable extends React.Component {
                                 (window.location.href = `details/${data._id}`)
                               }
                             >
-                              details
+                              Details
                             </div>
                           </td>
                           <td>
@@ -220,7 +167,6 @@ class EmployeeTable extends React.Component {
                                 } else {
                                   this.onEmpDelete(data._id);
                                 }
-                                // this.onEmpDelete(data._id);
                               }}
                             >
                               Delete
@@ -228,59 +174,9 @@ class EmployeeTable extends React.Component {
                           </td>
                         </tr>
                       );
-                  }
-                })
-              ) : filteredData ? (
-                <tr>
-                  <td> {filteredData.firstName}</td>
-                  <td> {filteredData.lastName}</td>
-                  <td> {filteredData.age}</td>
-                  <td> {filteredData.employeeStatus}</td>
-                  <td> {filteredData.birthDate}</td>
-                  <td> {filteredData.title}</td>
-                  <td> {filteredData.department}</td>
-                  <td> {filteredData.employeeType}</td>
-                  <td> {filteredData.employeeStatus}</td>
-                  <td>
-                    {this.calculateRetirementDate(filteredData.birthDate)}
-                  </td>
-                  <td>
-                    <div
-                      className="links"
-                      onClick={(_) => {
-                        window.location.href = `details/${filteredData._id}`;
-                      }}
-                    >
-                      details
-                    </div>
-                  </td>
-                  <td>
-                    <div
-                      className="links"
-                      onClick={(_) => {
-                        window.location.href = `edit/${filteredData._id}`;
-                      }}
-                    >
-                      Edit
-                    </div>
-                  </td>
-                  <td>
-                    <div
-                      className="links"
-                      onClick={(_) => {
-                        if (filteredData.employeeStatus === "Active") {
-                          alert("Status Active so not deleted");
-                        } else {
-                          this.onEmpDelete(filteredData._id);
-                        }
-                        // this.onEmpDelete(filteredData._id);
-                      }}
-                    >
-                      Delete
-                    </div>
-                  </td>
-                </tr>
-              ) : null}
+                    }
+                  })
+                : null}
             </tbody>
           </table>
         </div>
@@ -289,4 +185,4 @@ class EmployeeTable extends React.Component {
   }
 }
 
-export default EmployeeTable;
+export default UpComingRetirement;
