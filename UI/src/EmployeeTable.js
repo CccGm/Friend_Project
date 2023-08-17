@@ -33,12 +33,12 @@ class EmployeeTable extends React.Component {
     //       firstName,
     //       lastName,
     //       age,
-    //       birthDate,
+
     //       dateOfJoining,
     //       title,
     //       department,
     //       employeeType,
-    //       employeeStatus,
+
     //     }
     //   }`,
     // };

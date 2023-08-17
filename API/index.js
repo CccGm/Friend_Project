@@ -57,8 +57,6 @@ const deleteEmp = async (_, _id) => {
 };
 
 const EmployeeDetails = async (_, _id) => {
-  let abc = await Employee.findById(_id);
-  console.log(abc, "data+++");
   return await Employee.findById(_id);
 };
 
@@ -78,7 +76,6 @@ const resolvers = {
     updateEmployee,
     deleteEmp,
     EmployeeDetails,
-    filterEmpByType,
   },
 };
 
