@@ -6,6 +6,7 @@ class EmployeeDetails extends React.Component {
     super(props);
     this.state = {
       employeeDetails: null,
+      retirement: null,
     };
   }
 
@@ -16,14 +17,16 @@ class EmployeeDetails extends React.Component {
     const query = `
       mutation {
         EmployeeDetails(_id: "${_id}") {
-          _id
+          _id,
           firstName,
           lastName,
           age,
+          birthDate,
           dateOfJoining,
           title,
           department,
-          employeeType
+          employeeType,
+          employeeStatus,
         }
       }
     `;
@@ -42,6 +45,26 @@ class EmployeeDetails extends React.Component {
         console.error("Error fetching employee details:", error)
       );
   }
+
+  calculateRetirementDate = (birthdate) => {
+    const birthDateObj = new Date(birthdate);
+    const retirementYear = birthDateObj.getFullYear() + 65;
+    const retirementDateObj = new Date(
+      retirementYear,
+      birthDateObj.getMonth(),
+      birthDateObj.getDate()
+    );
+
+    // Calculate the difference in months between the current date and the retirement date
+    const monthsDifference =
+      (retirementDateObj - new Date()) / (1000 * 60 * 60 * 24 * 30.44); // Average month length
+
+    if (monthsDifference > 0) {
+      return retirementDateObj.toISOString().split("T")[0];
+    } else {
+      return "Emplyee is Retire";
+    }
+  };
 
   render() {
     const { employeeDetails } = this.state;
@@ -70,6 +93,10 @@ class EmployeeDetails extends React.Component {
                     <td> {employeeDetails.age}</td>
                   </tr>
                   <tr>
+                    <th>Birth of Date: </th>
+                    <td> {employeeDetails.birthDate}</td>
+                  </tr>
+                  <tr>
                     <th>Date of Join: </th>
                     <td> {employeeDetails.dateOfJoining}</td>
                   </tr>
@@ -78,12 +105,23 @@ class EmployeeDetails extends React.Component {
                     <td> {employeeDetails.title}</td>
                   </tr>
                   <tr>
+                    <th>Empoyee Status: </th>
+                    <td> {employeeDetails.employeeStatus}</td>
+                  </tr>
+                  <tr>
                     <th>Department: </th>
                     <td> {employeeDetails.department}</td>
                   </tr>
                   <tr>
                     <th>Employee Type: </th>
                     <td> {employeeDetails.employeeType}</td>
+                  </tr>
+                  <tr>
+                    <th>Employee Retirement:: </th>
+                    <td>
+                      {" "}
+                      {this.calculateRetirementDate(employeeDetails.birthDate)}
+                    </td>
                   </tr>
                   <div className="row">
                     <Link to="/" className="col-12 back-button submit-btn">
