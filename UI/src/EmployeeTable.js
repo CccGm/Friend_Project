@@ -145,6 +145,62 @@ class EmployeeTable extends React.Component {
     });
   };
 
+  handleViewDetails = (id) => {
+    window.location.href = `details/${id}`;
+  };
+
+  handleEdit = (id) => {
+    window.location.href = `edit/${id}`;
+  };
+
+  handleDelete = (id, employeeStatus) => {
+    if (employeeStatus === "Active") {
+      alert("Status Active so not deleted");
+    } else {
+      this.onEmpDelete(id);
+    }
+  };
+
+  renderEmployeeRow = (data, index) => {
+    const retirementDate = this.calculateRetirementDate(data.birthDate);
+
+    return (
+      <tr key={index}>
+        <td>{data.firstName}</td>
+        <td>{data.lastName}</td>
+        <td>{data.age}</td>
+        <td>{data.birthDate}</td>
+        <td>{data.dateOfJoining}</td>
+        <td>{data.title}</td>
+        <td>{data.employeeStatus}</td>
+        <td>{data.department}</td>
+        <td>{data.employeeType}</td>
+        <td>{retirementDate}</td>
+        <td>
+          <div
+            className="links"
+            onClick={() => this.handleViewDetails(data._id)}
+          >
+            Details
+          </div>
+        </td>
+        <td>
+          <div className="links" onClick={() => this.handleEdit(data._id)}>
+            Edit
+          </div>
+        </td>
+        <td>
+          <div
+            className="links"
+            onClick={() => this.handleDelete(data._id, data.employeeStatus)}
+          >
+            Delete
+          </div>
+        </td>
+      </tr>
+    );
+  };
+
   render() {
     const { empData, filteredData } = this.state;
 
@@ -174,114 +230,11 @@ class EmployeeTable extends React.Component {
             </thead>
 
             <tbody>
-              {empData && empData.length > 0 ? (
-                empData.map((data, index) => {
-                  {
-                    if (this.calculateRetirementDate(data.birthDate) != null)
-                      return (
-                        <tr key={index}>
-                          <td> {data.firstName}</td>
-                          <td> {data.lastName}</td>
-                          <td> {data.age}</td>
-                          <td> {data.birthDate}</td>
-                          <td> {data.dateOfJoining}</td>
-                          <td> {data.title}</td>
-                          <td> {data.employeeStatus}</td>
-                          <td> {data.department}</td>
-                          <td> {data.employeeType}</td>
-                          <td>
-                            {this.calculateRetirementDate(data.birthDate)}
-                          </td>
-                          <td>
-                            <div
-                              className="links"
-                              onClick={(_) =>
-                                (window.location.href = `details/${data._id}`)
-                              }
-                            >
-                              details
-                            </div>
-                          </td>
-                          <td>
-                            <div
-                              className="links"
-                              onClick={(_) =>
-                                (window.location.href = `edit/${data._id}`)
-                              }
-                            >
-                              Edit
-                            </div>
-                          </td>
-                          <td>
-                            <div
-                              className="links"
-                              onClick={(_) => {
-                                if (data.employeeStatus === "Active") {
-                                  alert("Status Active so not deleted");
-                                } else {
-                                  this.onEmpDelete(data._id);
-                                }
-                                // this.onEmpDelete(data._id);
-                              }}
-                            >
-                              Delete
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                  }
-                })
-              ) : filteredData ? (
-                <tr>
-                  <td> {filteredData.firstName}</td>
-                  <td> {filteredData.lastName}</td>
-                  <td> {filteredData.age}</td>
-                  <td> {filteredData.employeeStatus}</td>
-                  <td> {filteredData.birthDate}</td>
-                  <td> {filteredData.title}</td>
-                  <td> {filteredData.department}</td>
-                  <td> {filteredData.employeeType}</td>
-                  <td> {filteredData.employeeStatus}</td>
-                  <td>
-                    {this.calculateRetirementDate(filteredData.birthDate)}
-                  </td>
-                  <td>
-                    <div
-                      className="links"
-                      onClick={(_) => {
-                        window.location.href = `details/${filteredData._id}`;
-                      }}
-                    >
-                      details
-                    </div>
-                  </td>
-                  <td>
-                    <div
-                      className="links"
-                      onClick={(_) => {
-                        window.location.href = `edit/${filteredData._id}`;
-                      }}
-                    >
-                      Edit
-                    </div>
-                  </td>
-                  <td>
-                    <div
-                      className="links"
-                      onClick={(_) => {
-                        if (filteredData.employeeStatus === "Active") {
-                          alert("Status Active so not deleted");
-                        } else {
-                          this.onEmpDelete(filteredData._id);
-                        }
-                        // this.onEmpDelete(filteredData._id);
-                      }}
-                    >
-                      Delete
-                    </div>
-                  </td>
-                </tr>
-              ) : null}
+              {empData && empData.length > 0
+                ? empData.map(this.renderEmployeeRow)
+                : filteredData
+                ? filteredData.map(this.renderEmployeeRow)
+                : null}
             </tbody>
           </table>
         </div>

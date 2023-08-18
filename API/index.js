@@ -61,10 +61,9 @@ const EmployeeDetails = async (_, _id) => {
 };
 
 async function filterEmpByType(_, employeeType) {
-  // const result = await Employee.find(employeeType);
-  // console.log(result, "filter data---");
-  // return result;
-  return await Employee.findOne(employeeType);
+  const result = await Employee.find(employeeType);
+  return result;
+  // return await Employee.findOne(employeeType);
 }
 
 const resolvers = {

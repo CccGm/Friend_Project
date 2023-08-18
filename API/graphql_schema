@@ -35,5 +35,5 @@ type Mutation{
     EmployeeDetails(_id: String!) : Employee
     updateEmployee(data: data) : Employee
     deleteEmp(_id: String!) : Employee
-    filterEmpByType(employeeType: String!) : Employee
+    filterEmpByType(employeeType: String!) : [Employee!]!
 }
