@@ -89,109 +89,86 @@ class EmployeeCreate extends React.Component {
   render() {
     const { errors } = this.state;
 
+    const inputFields = [
+      { name: "firstName", label: "First Name", type: "text" },
+      { name: "lastName", label: "Last Name", type: "text" },
+      { name: "age", label: "Age", type: "number" },
+      { name: "birthDate", label: "Birth Date", type: "date" },
+      { name: "dateOfJoining", label: "Date Of Joining", type: "date" },
+    ];
+
+    const selectFields = [
+      {
+        name: "title",
+        label: "Title",
+        options: ["Employee", "Manager", "Director", "VP"],
+      },
+      {
+        name: "employeeStatus",
+        label: "Status",
+        options: ["Active", "Deactive"],
+      },
+      {
+        name: "department",
+        label: "Department",
+        options: ["IT", "Marketing", "HR", "Engineering"],
+      },
+      {
+        name: "employeeType",
+        label: "Employee Type",
+        options: ["Full Time", "Part Time", "Contract", "Seasonal"],
+      },
+    ];
+
+    const FormInput = ({ name, label, type, error }) => (
+      <div className="form-control">
+        <label>{label}</label>
+        <input type={type} name={name} placeholder={label}></input>
+        {error && <p className="error">{error}</p>}
+      </div>
+    );
+
     return (
-      <div className="container ">
+      <div className="container">
         <div className="container row create-employee">
           <div className="col-12">
-            <h1> Employee Form </h1>
+            <h1>Employee Form</h1>
           </div>
           <form
-            className="col-12 bg-light shadow rounded users-from-bg "
+            className="col-12 bg-light shadow rounded users-from-bg"
             id="employee-form"
             name="employeeForm"
             onSubmit={this.onSubmit}
           >
-            <div className="form-control">
-              <label>First Name</label>
-              <input
-                type="text"
-                name="firstName"
-                placeholder="First name"
-              ></input>
-              {errors && <p className="error"> {errors.firstNameErr} </p>}
-            </div>
+            {inputFields.map((field, index) => (
+              <FormInput
+                key={index}
+                name={field.name}
+                label={field.label}
+                type={field.type}
+                error={errors && errors[`${field.name}Err`]}
+              />
+            ))}
 
-            <div className="form-control">
-              <label>Last Name</label>
-              <input
-                type="text"
-                name="lastName"
-                placeholder="Last name"
-              ></input>
-              {errors && <p className="error"> {errors.lastNameErr} </p>}
-            </div>
+            {selectFields.map((field, index) => (
+              <div className="form-control" key={index}>
+                <label>{field.label}</label>
+                <select name={field.name}>
+                  <option value="select" disabled>
+                    Select an Option
+                  </option>
+                  {field.options.map((option, index) => (
+                    <option key={index} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+                {errors && (
+                  <p className="error"> {errors[`${field.name}Err`]} </p>
+                )}
+              </div>
+            ))}
 
-            <div className="form-control">
-              <label>Age</label>
-              <input type="number" name="age" placeholder="Age"></input>
-              {errors && <p className="error"> {errors.ageErr} </p>}
-            </div>
-
-            <div className="form-control">
-              <label>Birth Date</label>
-              <input type="date" name="birthDate"></input>
-              {errors && <p className="error"> {errors.birthDateErr} </p>}
-            </div>
-
-            <div className="form-control">
-              <label>Date Of Joining</label>
-              <input type="date" name="dateOfJoining"></input>
-              {errors && <p className="error"> {errors.dateOfJoiningErr} </p>}
-            </div>
-
-            <div className="form-control">
-              <label>Title</label>
-              <select name="title">
-                <option value="select" disabled>
-                  Select an Option
-                </option>
-                <option value="Employee">Employee</option>
-                <option value="Manager">Manager</option>
-                <option value="Director">Director</option>
-                <option value="VP">VP</option>
-              </select>
-              {errors && <p className="error"> {errors.titleErr} </p>}
-            </div>
-
-            <div className="form-control">
-              <label>Status</label>
-              <select name="employeeStatus">
-                <option value="select" disabled>
-                  Select an Option
-                </option>
-                <option value="Active">Active</option>
-                <option value="Deactive">Deactive</option>
-              </select>
-              {errors && <p className="error"> {errors.employeeStatusErr} </p>}
-            </div>
-
-            <div className="form-control">
-              <label>Department</label>
-              <select name="department">
-                <option value="select" disabled>
-                  Select an Option
-                </option>
-                <option value="IT">IT</option>
-                <option value="Marketing">Marketing</option>
-                <option value="HR">HR</option>
-                <option value="Engineering">Engineering</option>
-              </select>
-              {errors && <p className="error"> {errors.departmentErr} </p>}
-            </div>
-
-            <div className="form-control">
-              <label>Employee Type</label>
-              <select name="employeeType">
-                <option value="select" disabled>
-                  Select an Option
-                </option>
-                <option value="FullTime">Full Time</option>
-                <option value="PartTime">Part Time</option>
-                <option value="Contract">Contract</option>
-                <option value="Seasonal">Seasonal</option>
-              </select>
-              {errors && <p className="error"> {errors.empTypeErr} </p>}
-            </div>
             <div className="submit-btn form-control">
               <button type="submit">Submit</button>
             </div>

@@ -163,42 +163,43 @@ class EmployeeTable extends React.Component {
 
   renderEmployeeRow = (data, index) => {
     const retirementDate = this.calculateRetirementDate(data.birthDate);
-
-    return (
-      <tr key={index}>
-        <td>{data.firstName}</td>
-        <td>{data.lastName}</td>
-        <td>{data.age}</td>
-        <td>{data.birthDate}</td>
-        <td>{data.dateOfJoining}</td>
-        <td>{data.title}</td>
-        <td>{data.employeeStatus}</td>
-        <td>{data.department}</td>
-        <td>{data.employeeType}</td>
-        <td>{retirementDate}</td>
-        <td>
-          <div
-            className="links"
-            onClick={() => this.handleViewDetails(data._id)}
-          >
-            Details
-          </div>
-        </td>
-        <td>
-          <div className="links" onClick={() => this.handleEdit(data._id)}>
-            Edit
-          </div>
-        </td>
-        <td>
-          <div
-            className="links"
-            onClick={() => this.handleDelete(data._id, data.employeeStatus)}
-          >
-            Delete
-          </div>
-        </td>
-      </tr>
-    );
+    if (this.calculateRetirementDate(data.birthDate) != null) {
+      return (
+        <tr key={index}>
+          <td>{data.firstName}</td>
+          <td>{data.lastName}</td>
+          <td>{data.age}</td>
+          <td>{data.birthDate}</td>
+          <td>{data.dateOfJoining}</td>
+          <td>{data.title}</td>
+          <td>{data.employeeStatus}</td>
+          <td>{data.department}</td>
+          <td>{data.employeeType}</td>
+          <td>{retirementDate}</td>
+          <td>
+            <div
+              className="links"
+              onClick={() => this.handleViewDetails(data._id)}
+            >
+              Details
+            </div>
+          </td>
+          <td>
+            <div className="links" onClick={() => this.handleEdit(data._id)}>
+              Edit
+            </div>
+          </td>
+          <td>
+            <div
+              className="links"
+              onClick={() => this.handleDelete(data._id, data.employeeStatus)}
+            >
+              Delete
+            </div>
+          </td>
+        </tr>
+      );
+    }
   };
 
   render() {
