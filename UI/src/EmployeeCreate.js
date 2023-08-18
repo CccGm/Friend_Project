@@ -10,8 +10,8 @@ class EmployeeCreate extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const form = document.forms.employeeForm;
-    let employee = {
+    const form = e.target;
+    const employee = {
       firstName: form.firstName.value,
       lastName: form.lastName.value,
       age: form.age.value,
@@ -22,59 +22,32 @@ class EmployeeCreate extends React.Component {
       employeeType: form.employeeType.value,
       employeeStatus: form.employeeStatus.value,
     };
-    let _errors = {
-      fnameErr: null,
-      lnameErr: null,
-      ageErr: null,
-      birthDate: null,
-      dateOfJoiningErr: null,
-      titleErr: null,
-      departmentErr: null,
-      empTypeErr: null,
-      employeeStatus: null,
-    };
-    if (employee.firstName === "") {
-      _errors.fnameErr = "First name required";
-    }
-    if (employee.lastName === "") {
-      _errors.lnameErr = "Last name required";
-    }
-    if (employee.age === "") {
-      _errors.ageErr = "Age is required";
-    }
-    if (employee.birthDate === "") {
-      _errors.birthDateErr = "birthDate is required";
-    }
-    if (employee.dateOfJoining === "") {
-      _errors.dateOfJoiningErr = "Date of joining is required";
-    }
-    if (employee.title === "") {
-      _errors.titleErr = "Title is required";
-    }
-    if (employee.department === "") {
-      _errors.departmentErr = "Department is required";
-    }
-    if (employee.employeeStatus === "") {
-      _errors.employeeStatusErr = "employeeStatus is required";
-    }
-    if (employee.employeeType === "") {
-      _errors.empTypeErr = "Employee Type is required";
-    }
-    this.setState({ errors: _errors });
 
-    if (
-      employee.firstName &&
-      employee.lastName &&
-      employee.age &&
-      employee.birthDate &&
-      employee.dateOfJoining &&
-      employee.title &&
-      employee.employeeStatus &&
-      employee.department &&
-      employee.employeeType
-    ) {
+    const errors = {};
+
+    const fieldsToValidate = [
+      "firstName",
+      "lastName",
+      "age",
+      "birthDate",
+      "dateOfJoining",
+      "title",
+      "department",
+      "employeeType",
+      "employeeStatus",
+    ];
+
+    fieldsToValidate.forEach((field) => {
+      if (!employee[field]) {
+        errors[`${field}Err`] = `${field} is required`;
+      }
+    });
+
+    this.setState({ errors });
+
+    if (Object.keys(errors).length === 0) {
       this.addEmployee(employee);
-      alert("Employee added succesfully");
+      alert("Employee added successfully");
       // window.location.href = "/";
       window.location.reload();
     }
@@ -117,8 +90,8 @@ class EmployeeCreate extends React.Component {
     const { errors } = this.state;
 
     return (
-      <div className="container">
-        <div className="container row create-employee ">
+      <div className="container ">
+        <div className="container row create-employee">
           <div className="col-12">
             <h1> Employee Form </h1>
           </div>
@@ -135,7 +108,7 @@ class EmployeeCreate extends React.Component {
                 name="firstName"
                 placeholder="First name"
               ></input>
-              {errors && <p className="error"> {errors.fnameErr} </p>}
+              {errors && <p className="error"> {errors.firstNameErr} </p>}
             </div>
 
             <div className="form-control">
@@ -145,7 +118,7 @@ class EmployeeCreate extends React.Component {
                 name="lastName"
                 placeholder="Last name"
               ></input>
-              {errors && <p className="error"> {errors.lnameErr} </p>}
+              {errors && <p className="error"> {errors.lastNameErr} </p>}
             </div>
 
             <div className="form-control">

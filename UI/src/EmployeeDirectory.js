@@ -86,9 +86,9 @@ class EmployeeDirectory extends React.Component {
         <EmployeeSearch />
         <EmployeeCreate addEmployee={this.addEmployee} />
         {/* <EmployeeFilter /> */}
-        <div className="employee-pt">
-          <EmployeeTable employees={employees} />
-        </div>
+        {/* <div className="container"> */}
+        <EmployeeTable employees={employees} />
+        {/* </div> */}
       </div>
     );
   }
